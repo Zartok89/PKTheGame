@@ -3,6 +3,7 @@
 
 #include "PKCharacterBase.h"
 
+#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
 // Sets default values
@@ -28,8 +29,6 @@ void APKCharacterBase::BeginPlay()
 			}
 		}
 	}
-		
-	
 	
 }
 
@@ -45,5 +44,30 @@ void APKCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerJump);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerMove);
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerShoot);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerLook);
+	}
+}
+
+void APKCharacterBase::PlayerJump()
+{
+	Jump();
+}
+
+void APKCharacterBase::PlayerMove()
+{
+	
+}
+
+void APKCharacterBase::PlayerShoot()
+{
+}
+
+void APKCharacterBase::PlayerLook()
+{
 }
 

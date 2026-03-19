@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "PKCharacterBase.generated.h"
 
+class UInputAction;
 class UInputMappingContext;
 
 UCLASS()
@@ -33,5 +34,21 @@ public:
 	 */
 	UPROPERTY(EditAnywhere)
 	UInputMappingContext* MappingContext;
+	
+	UPROPERTY(EditAnywhere)
+	UInputAction* MoveAction;
 
+	UPROPERTY(EditAnywhere)
+	UInputAction* JumpAction;
+	
+	UPROPERTY(EditAnywhere)
+	UInputAction* LookAction;
+	
+	UPROPERTY(EditAnywhere)
+	UInputAction* ShootAction;
+	
+	void PlayerJump();
+	void PlayerMove();
+	void PlayerShoot();
+	void PlayerLook();
 };
