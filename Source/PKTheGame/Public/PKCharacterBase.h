@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "PKCharacterBase.generated.h"
 
+class USpringArmComponent;
+class UCameraComponent;
+struct FInputActionValue;
 class UInputAction;
 class UInputMappingContext;
 
@@ -29,26 +32,53 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	virtual void OnConstruction(const FTransform& Transform) override;
+	
 	/*
 	 * Controller
 	 */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputMappingContext* MappingContext;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MoveAction;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* LookAction;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* ShootAction;
 	
 	void PlayerJump();
-	void PlayerMove();
+	void PlayerMove(const FInputActionValue& ActionValue);
 	void PlayerShoot();
-	void PlayerLook();
+	void PlayerLook(const FInputActionValue& ActionValue);
+	
+	/*
+	 * Camera
+	 */
+	UPROPERTY(EditAnywhere, Category = "Camera")
+	UCameraComponent* PlayerCamera;
+	
+	UPROPERTY(EditAnywhere, Category = "Camera")
+	USpringArmComponent* SpringArm;
+	
+	/*
+	 * Weapons 
+	 */
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	UStaticMeshComponent* WeaponMesh;
+	
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	UClass* Projectile;
+	
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	FName HandleSocket;
+	
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	FName ProjectileMuzzleSocket;
+	
 };
