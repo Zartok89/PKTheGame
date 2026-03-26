@@ -52,10 +52,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* ShootAction;
 	
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* InteractAction;
+	
 	void PlayerJump();
 	void PlayerMove(const FInputActionValue& ActionValue);
 	void PlayerShoot();
 	void PlayerLook(const FInputActionValue& ActionValue);
+	void PlayerInteract();
 	
 	/*
 	 * Camera

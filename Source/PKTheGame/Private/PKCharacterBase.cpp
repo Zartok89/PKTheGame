@@ -66,6 +66,7 @@ void APKCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerMove);
 		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerShoot);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerLook);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &APKCharacterBase::PlayerInteract);
 	}
 }
 
@@ -119,3 +120,7 @@ void APKCharacterBase::PlayerLook(const FInputActionValue& ActionValue)
 	AddControllerPitchInput(ActionRotation.Y);
 }
 
+void APKCharacterBase::PlayerInteract()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Purple, "INTERACT ACTION CALLED");
+}
