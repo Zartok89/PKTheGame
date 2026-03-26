@@ -61,6 +61,12 @@ public:
 	void PlayerLook(const FInputActionValue& ActionValue);
 	void PlayerInteract();
 	
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	float InteractRadius = 200.f;
+		
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	float InteractDebugDuration = 1.f;
+	
 	/*
 	 * Camera
 	 */

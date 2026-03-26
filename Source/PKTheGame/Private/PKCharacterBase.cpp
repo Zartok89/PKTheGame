@@ -5,10 +5,10 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "PKInteractInterface.h"
 #include "Camera/CameraComponent.h"
-#include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values
 APKCharacterBase::APKCharacterBase()
@@ -122,5 +122,37 @@ void APKCharacterBase::PlayerLook(const FInputActionValue& ActionValue)
 
 void APKCharacterBase::PlayerInteract()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Purple, "INTERACT ACTION CALLED");
+	// GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Purple, "INTERACT ACTION CALLED");
+	
+	FVector ActorLocation = GetActorLocation();
+	
+	TArray<AActor*> ActorsToIgnore;
+	TArray<FHitResult> HitResults;
+	
+	UKismetSystemLibrary::SphereTraceMulti(
+		this,
+		ActorLocation,
+		ActorLocation,
+		InteractRadius,
+		TraceTypeQuery1,
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::ForDuration,
+		HitResults,
+		true,
+		FLinearColor::Yellow,
+		FLinearColor::Blue,
+		InteractDebugDuration
+		);
+
+	for (auto ActorHit : HitResults)
+	{
+		AActor* ActorInteractHit = ActorHit.GetActor();
+		
+		if (ActorInteractHit->GetClass()->ImplementsInterface(UPKInteractInterface::StaticClass()))
+		{
+			IPKInteractInterface::Execute_Interact(ActorInteractHit);
+		}
+	}
+
 }

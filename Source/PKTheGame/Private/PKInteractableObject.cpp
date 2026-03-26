@@ -22,5 +22,13 @@ void APKInteractableObject::BeginPlay()
 void APKInteractableObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+}
+
+void APKInteractableObject::Interact_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, "INTERACT OBJECT RESPONDS");
+	
+
 }
 

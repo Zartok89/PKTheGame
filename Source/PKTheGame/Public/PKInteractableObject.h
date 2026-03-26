@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PKInteractInterface.h"
 #include "GameFramework/Actor.h"
 #include "PKInteractableObject.generated.h"
 
 UCLASS()
-class PKTHEGAME_API APKInteractableObject : public AActor
+class PKTHEGAME_API APKInteractableObject : public AActor, public IPKInteractInterface
 {
 	GENERATED_BODY()
 
@@ -22,4 +23,6 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	virtual void Interact_Implementation() override;
 };
